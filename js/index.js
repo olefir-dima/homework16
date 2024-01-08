@@ -23,11 +23,20 @@ function showAlert(title, text) {
 
   document.body.appendChild(customAlert);
 
-  btn.addEventListener("click", hideAlert);
-
   function hideAlert() {
     customAlert.style.display = "none";
+    btn.removeEventListener("click", hideAlert);
+    window.removeEventListener("click", clickOutside);
   }
+
+  function clickOutside(event) {
+    if (event.target === customAlert) {
+      hideAlert();
+    }
+  }
+
+  btn.addEventListener("click", hideAlert);
+  window.addEventListener("click", clickOutside);
 }
 
 showAlert("Homework 16", "Custom alert");
