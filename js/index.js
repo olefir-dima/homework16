@@ -1,4 +1,4 @@
-function showAlert(title, text) {
+function customAlert(title, text) {
   const content = document.createElement("div");
   content.className = "content";
 
@@ -39,4 +39,17 @@ function showAlert(title, text) {
   window.addEventListener("click", clickOutside);
 }
 
-showAlert("Homework 16", "Custom alert");
+function showAlert() {
+  const title = document.getElementById("title").value.trim();
+  const text = document.getElementById("text").value.trim();
+
+  if (!title) {
+    customAlert("Error", "Please fill title field.");
+    return;
+  }
+  if (!text) {
+    customAlert("Error", "Please fill text field.");
+    return;
+  }
+  customAlert(title, text);
+}
