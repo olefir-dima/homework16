@@ -1,27 +1,48 @@
 function customAlert(title, text) {
-  const content = document.createElement("div");
-  content.className = "content";
+  let customAlert, alertTitle, alertText, btn;
 
-  const alertTitle = document.createElement("h2");
-  alertTitle.textContent = title;
+  if (document.getElementById("customAlert")) {
+    updateAlert(title, text);
+  } else {
+    createAlert(title, text);
+  }
 
-  const hr = document.createElement("hr");
-  hr.className = "hr";
+  function createAlert(title, text) {
+    const content = document.createElement("div");
+    content.className = "content";
 
-  const alertText = document.createElement("p");
-  alertText.textContent = text;
+    alertTitle = document.createElement("h2");
+    alertTitle.id = "alertTitle";
+    alertTitle.textContent = title;
 
-  const btn = document.createElement("button");
-  btn.className = "btn";
-  btn.textContent = "OK";
+    const hr = document.createElement("hr");
+    hr.className = "hr";
 
-  content.append(alertTitle, hr, alertText, btn);
+    alertText = document.createElement("p");
+    alertText.id = "alertText";
+    alertText.textContent = text;
 
-  const customAlert = document.createElement("div");
-  customAlert.className = "modal";
-  customAlert.appendChild(content);
+    btn = document.createElement("button");
+    btn.id = "btn";
+    btn.className = "btn";
+    btn.textContent = "OK";
 
-  document.body.appendChild(customAlert);
+    content.append(alertTitle, hr, alertText, btn);
+
+    customAlert = document.createElement("div");
+    customAlert.id = "customAlert";
+    customAlert.className = "modal";
+    customAlert.appendChild(content);
+
+    document.body.appendChild(customAlert);
+  }
+
+  function updateAlert(title, text) {
+    document.getElementById("alertTitle").textContent = title;
+    document.getElementById("alertText").textContent = text;
+    customAlert = document.getElementById("customAlert");
+    customAlert.style.display = "";
+  }
 
   function hideAlert() {
     customAlert.style.display = "none";
@@ -35,6 +56,7 @@ function customAlert(title, text) {
     }
   }
 
+  btn = btn ? btn : document.getElementById("btn");
   btn.addEventListener("click", hideAlert);
   window.addEventListener("click", clickOutside);
 }
